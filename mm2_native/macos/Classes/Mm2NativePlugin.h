@@ -1,0 +1,1 @@
+int8_t mm2_main (const char* conf, void (*log_cb) (const char* line));
