@@ -18,4 +18,8 @@ public class SwiftMm2NativePlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
   }
+
+   public func dummyMethodToEnforceBundling() {
+        mm2_main("", nil)
+   }
 }
