@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import os.log
 
 public class SwiftMm2NativePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -9,6 +10,12 @@ public class SwiftMm2NativePlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS " + UIDevice.current.systemVersion)
+    switch call.method {
+        case "getPlatformVersion":
+            os_log("getPlatformVersion iOS", type: OSLogType.default)
+            result("iOS " + UIDevice.current.systemVersion)
+        default:
+            result(FlutterMethodNotImplemented)
+        }
   }
 }
