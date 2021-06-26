@@ -5,11 +5,11 @@
 Pod::Spec.new do |s|
   s.name             = 'mm2_native'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'A flutter plugin for atomicdex api (mm2).'
   s.description      = <<-DESC
-A new flutter plugin project.
+A flutter plugin for atomicdex api (mm2)
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://atomicdex.io/'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
