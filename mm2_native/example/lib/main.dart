@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:ffi' as ffi; // For FFI
+import 'dart:isolate';
 
 import 'package:flutter/services.dart';
 import 'package:mm2_native/mm2_native.dart';
-import 'package:ffi/ffi.dart';
+
+
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    debugPrint("thread: " + Isolate.current.debugName.toString());
     initPlatformState();
     initMM2();
   }

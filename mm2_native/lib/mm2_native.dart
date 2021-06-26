@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:ffi' as ffi; // For FFI
 import 'dart:io'; // For Platform.isX
+import 'dart:isolate';
 
 //! Flutter packages
 import 'package:flutter/services.dart';
@@ -32,13 +33,10 @@ class Mm2Native {
 
   static int mm2Status() {
     print('before mm2 status');
-    MM2MainStatus func = mm2NativeLib
+    MM2MainStatus mainStatusFunctor = mm2NativeLib
         .lookup<ffi.NativeFunction<mm2_main_status_func>>("mm2_main_status")
         .asFunction();
-    print('mm2_status function retrieved');
-    int status = func();
-    print('mm2_status retrieved');
-    return status;
+    return mainStatusFunctor();
   }
 
   static void mm2Callback(ffi.Pointer<Utf8> str) {
@@ -47,18 +45,18 @@ class Mm2Native {
 
   // function
   static int mm2Start() {
-    //await _channel.invokeMethod('mm2Start');
-    print('before mm2 start');
-    MM2Start func = mm2NativeLib
-        .lookup<ffi.NativeFunction<mm2_main_func>>("mm2_main")
-        .asFunction();
-    print(func.toString());
-    print('mm2 main function retrieved');
     String cfg =
-        "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"foo\"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}";
-    func(cfg.toNativeUtf8().cast(),
-        ffi.Pointer.fromFunction<mm2_log_cb_func>(mm2Callback));
-    print('mm2 started');
+        "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"foo\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}";
+    if (Platform.isIOS) {
+      var arg = <String, String>{'mm2Arg': cfg};
+      _channel.invokeMethod("mm2Start", arg);
+    } else {
+      MM2Start func = mm2NativeLib
+          .lookup<ffi.NativeFunction<mm2_main_func>>("mm2_main")
+          .asFunction();
+      func(cfg.toNativeUtf8().cast(),
+          ffi.Pointer.fromFunction<mm2_log_cb_func>(mm2Callback));
+    }
     return 0;
   }
 }
