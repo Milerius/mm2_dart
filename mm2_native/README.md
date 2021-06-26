@@ -2,8 +2,11 @@
 
 Todo list:
 
-- [x] iOS support
+- [ ] iOS support
   - [ ] Automatically download static library from url
+  - [x] Add mm2Start function
+  - [ ] Add mm2Stop function
+  - [x] Add mm2Status function
 - [ ] MacOS support
     - [ ] Automatically download static library from url
     - [ ] Also depends on https://github.com/KomodoPlatform/atomicDEX-API/issues/998
