@@ -47,7 +47,7 @@ class Mm2Native {
   static int mm2Start() {
     String cfg =
         "{\"gui\":\"MM2GUI\",\"netid\":7777, \"userhome\":\"foo\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}";
-    if (Platform.isIOS) {
+    if (Platform.isIOS || Platform.isMacOS) {
       var arg = <String, String>{'mm2Arg': cfg};
       _channel.invokeMethod("mm2Start", arg);
     } else {
