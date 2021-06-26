@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:ffi' as ffi; // For FFI
 
 import 'package:flutter/services.dart';
 import 'package:mm2_native/mm2_native.dart';
+import 'package:ffi/ffi.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void initMM2() {
+    print("status: " + Mm2Native.mm2Status().toString());
     Mm2Native.mm2Start();
   }
 

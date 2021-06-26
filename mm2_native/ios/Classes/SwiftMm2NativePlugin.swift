@@ -20,6 +20,10 @@ public class SwiftMm2NativePlugin: NSObject, FlutterPlugin {
   }
 
    public func dummyMethodToEnforceBundling() {
-        mm2_main("", nil)
+        let error = Int32(mm2_main("", { (line) in
+                let mm2log = ["log": "AppDelegate] " + String(cString: line!)]
+            }));
+
+        let res = Int32(mm2_main_status());
    }
 }
